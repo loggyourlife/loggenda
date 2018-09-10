@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="athens_gray">#ECEFF3</color>
+    <color name="azure">#355F9E</color>
+    <color name="brick_red">#BA2E4D</color>
+    <color name="oxford_blue">#3D4260</color>
+    <color name="white">#fff</color>
+</resources>

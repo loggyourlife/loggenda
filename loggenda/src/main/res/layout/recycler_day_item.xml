@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dayItemLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="4dp">
+
+    <View
+        android:id="@+id/viewReminderDot"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/reminder_dot"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/oxford_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivIcon1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:tint="@color/azure"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivIcon2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDay"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivIcon2"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:tint="@color/azure"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIcon1"
+        app:layout_constraintEnd_toStartOf="@+id/ivIcon3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivIcon1"
+        app:layout_constraintTop_toTopOf="@+id/ivIcon1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivIcon3"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="2dp"
+        android:tint="@color/azure"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIcon1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivIcon2"
+        app:layout_constraintTop_toTopOf="@+id/ivIcon1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvMoreCount"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:textAlignment="textEnd"
+        android:textColor="@color/azure"
+        android:textSize="8sp"
+        android:visibility="gone"
+        android:autoSizeMaxTextSize="8dp"
+        android:autoSizeMinTextSize="4dp"
+        android:autoSizeStepGranularity="1dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
