@@ -42,6 +42,13 @@ loggenda.show(LocalDate.now(), supportFragmentManager)
 ```
 For advanced use, you can check [the sample](https://github.com/loggyourlife/loggenda/blob/master/app/src/main/java/com/logg/loggenda/sample/MainActivity.kt).
 
+## Screenshots
+<p float="left">
+<img src="/images/Screenshots/Screenshot_20180911-102025.png" width="285px"  alt="Loggenda Screenshot 1" />
+<img src="/images/Screenshots/Screenshot_20180911-102112.png" width="285px" alt="Loggenda Screenshot 2" />
+<img src="/images/Screenshots/Screenshot_20180911-102127.png" width="285px" alt="Loggenda Screenshot 3" />
+</p>
+
 ---
 
 Thanks to [Didem Erişkin](https://www.behance.net/eriskindidem) and [Serkan Mercan](http://serkanmercan.com) for logo design and animation.
