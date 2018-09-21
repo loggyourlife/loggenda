@@ -50,15 +50,17 @@ class SnapToBlock internal constructor(// Maxim blocks to move during most vigor
         if (recyclerView != null) {
             mRecyclerView = recyclerView
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-            if (layoutManager.canScrollHorizontally()) {
-                mOrientationHelper = OrientationHelper.createHorizontalHelper(layoutManager)
-                mLayoutDirectionHelper = LayoutDirectionHelper(ViewCompat.getLayoutDirection(mRecyclerView!!))
-            } else if (layoutManager.canScrollVertically()) {
-                mOrientationHelper = OrientationHelper.createVerticalHelper(layoutManager)
-                // RTL doesn't matter for vertical scrolling for this class.
-                mLayoutDirectionHelper = LayoutDirectionHelper(RecyclerView.LAYOUT_DIRECTION_LTR)
-            } else {
-                throw IllegalStateException("RecyclerView must be scrollable")
+            when {
+                layoutManager.canScrollHorizontally() -> {
+                    mOrientationHelper = OrientationHelper.createHorizontalHelper(layoutManager)
+                    mLayoutDirectionHelper = LayoutDirectionHelper(ViewCompat.getLayoutDirection(mRecyclerView!!))
+                }
+                layoutManager.canScrollVertically() -> {
+                    mOrientationHelper = OrientationHelper.createVerticalHelper(layoutManager)
+                    // RTL doesn't matter for vertical scrolling for this class.
+                    mLayoutDirectionHelper = LayoutDirectionHelper(RecyclerView.LAYOUT_DIRECTION_LTR)
+                }
+                else -> throw IllegalStateException("RecyclerView must be scrollable")
             }
             mScroller = Scroller(mRecyclerView!!.context, sInterpolator)
             initItemDimensionIfNeeded(layoutManager)
@@ -153,10 +155,10 @@ class SnapToBlock internal constructor(// Maxim blocks to move during most vigor
         if (firstVisiblePos >= mPriorFirstPosition) {
             // Scrolling toward bottom of data
             val firstCompletePosition = layoutManager.findFirstCompletelyVisibleItemPosition()
-            if (firstCompletePosition != RecyclerView.NO_POSITION && firstCompletePosition % mBlocksize == 0) {
-                snapPos = firstCompletePosition
+            snapPos = if (firstCompletePosition != RecyclerView.NO_POSITION && firstCompletePosition % mBlocksize == 0) {
+                firstCompletePosition
             } else {
-                snapPos = roundDownToBlockSize(firstVisiblePos + mBlocksize)
+                roundDownToBlockSize(firstVisiblePos + mBlocksize)
             }
         } else {
             // Scrolling toward top of data
@@ -186,12 +188,15 @@ class SnapToBlock internal constructor(// Maxim blocks to move during most vigor
             return
         }
 
-        if (layoutManager.canScrollHorizontally()) {
-            mItemDimension = child.width
-            mBlocksize = getSpanCount(layoutManager) * (mRecyclerView!!.width / mItemDimension)
-        } else if (layoutManager.canScrollVertically()) {
-            mItemDimension = child.height
-            mBlocksize = getSpanCount(layoutManager) * (mRecyclerView!!.height / mItemDimension)
+        when {
+            layoutManager.canScrollHorizontally() -> {
+                mItemDimension = child.width
+                mBlocksize = getSpanCount(layoutManager) * (mRecyclerView!!.width / mItemDimension)
+            }
+            layoutManager.canScrollVertically() -> {
+                mItemDimension = child.height
+                mBlocksize = getSpanCount(layoutManager) * (mRecyclerView!!.height / mItemDimension)
+            }
         }
         mMaxPositionsToMove = mBlocksize * mMaxFlingBlocks
     }
@@ -242,11 +247,7 @@ class SnapToBlock internal constructor(// Maxim blocks to move during most vigor
     internal constructor(direction: Int) {
 
         // Is the layout an RTL one?
-        private val mIsRTL: Boolean
-
-        init {
-            mIsRTL = direction == View.LAYOUT_DIRECTION_RTL
-        }
+        private val mIsRTL: Boolean = direction == View.LAYOUT_DIRECTION_RTL
 
         /*
             Calculate the amount of scroll needed to align the target view with the layout edge.
@@ -350,7 +351,7 @@ class SnapToBlock internal constructor(// Maxim blocks to move during most vigor
             t * t * t + 1.0f
         }
 
-        private val MILLISECONDS_PER_INCH = 100f
-        private val TAG = "SnapToBlock"
+        private const val MILLISECONDS_PER_INCH = 100f
+        private const val TAG = "SnapToBlock"
     }
 }

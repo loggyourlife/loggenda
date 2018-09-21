@@ -3,7 +3,6 @@ package com.logg.loggenda.adapter
 import android.annotation.SuppressLint
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +49,7 @@ class MonthAdapter(private val data: MutableList<MonthItem>?, private var nowDat
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initChildLayoutManager(vh: MonthAdapterViewHolder, position: Int) {
-        var rvChild = vh.itemView.recyclerDay
+        val rvChild = vh.itemView.recyclerDay
         rvChild.onFlingListener = null
         rvChild.layoutManager = GridLayoutManager(rvChild.context, 7)
         rvChild.setHasFixedSize(true)

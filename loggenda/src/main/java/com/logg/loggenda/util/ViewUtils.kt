@@ -24,9 +24,9 @@ object ViewUtils {
             shortWeekDays.removeAt(0)
             shortWeekDays.add(tempDay)
         }
-        shortWeekDays.forEach {
+        shortWeekDays.forEach { days ->
             val textView = TextView(rootLayout.context)
-            textView.text = it.toUpperCase(locale)
+            textView.text = days.toUpperCase(locale)
             textView.textSize = textSize
             val lparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, convertDpToPixel(rootLayout.context, 25))
             lparams.weight = 1f
@@ -51,11 +51,11 @@ object ViewUtils {
         return (width - convertDpToPixel(context, (16 + marginDp))) / 7
     }
 
-    fun convertPixelsToDp(context: Context, px: Float): Float {
+    /*fun convertPixelsToDp(context: Context, px: Float): Float {
         val metrics = context.resources.displayMetrics
         val dp = px / (metrics.densityDpi / 160f)
         return Math.round(dp).toFloat()
-    }
+    }*/
 
     fun convertDpToPixel(context: Context, dp: Int): Int {
         val metrics = context.resources.displayMetrics

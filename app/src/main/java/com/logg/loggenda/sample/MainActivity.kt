@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             LocalDate().dayOfMonth
         }
-        (1..day).forEach {
+        (1..day).forEach { _ ->
             val rnd = getRandomNumber()
             events.add(EventItem(false, iconList!!.shuffled().subList(0, rnd), localeDate, if (rnd == 3) rnd * getRandomNumber() else rnd))
             localeDate = localeDate.plusDays(1)

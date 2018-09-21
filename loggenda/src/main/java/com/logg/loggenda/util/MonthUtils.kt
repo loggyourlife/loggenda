@@ -9,8 +9,8 @@ const val typeSelectedDateEnd = 2
 
 object MonthUtils {
     fun generate3Month(selectedLocalDate: LocalDate, type: Int, isFirstDayWithSunday: Boolean = false): MutableList<MonthItem> {
-        var monthItemList = mutableListOf<MonthItem>()
-        var monthList = mutableListOf<LocalDate>()
+        val monthItemList = mutableListOf<MonthItem>()
+        val monthList = mutableListOf<LocalDate>()
         if (type == typeSelectedDateCenter) {
             monthList.add(selectedLocalDate.minusMonths(1))
             monthList.add(selectedLocalDate)
@@ -23,7 +23,7 @@ object MonthUtils {
         monthList.forEach {
             val startDay = it.dayOfMonth().withMinimumValue()
             val endDay = it.dayOfMonth().withMaximumValue()
-            var dayItemList = mutableListOf<DayItem>()
+            val dayItemList = mutableListOf<DayItem>()
             if (startDay.dayOfWeek != 1) {
                 for (i in 1..(startDay.dayOfWeek - 1)) {
                     dayItemList.add(DayItem(null, null, null, true))
@@ -44,7 +44,7 @@ object MonthUtils {
 
     fun addMonth(lastMonth: LocalDate, isLeftDirection: Boolean = true, isFirstDayWithSunday: Boolean = false): MonthItem? {
         var monthItem: MonthItem? = null
-        var newMonth: LocalDate? = if (isLeftDirection) {
+        val newMonth: LocalDate? = if (isLeftDirection) {
             lastMonth.minusMonths(1)
         } else {
             lastMonth.plusMonths(1)
@@ -52,7 +52,7 @@ object MonthUtils {
         newMonth?.let {
             val startDay = it.dayOfMonth().withMinimumValue()
             val endDay = it.dayOfMonth().withMaximumValue()
-            var dayItemList = mutableListOf<DayItem>()
+            val dayItemList = mutableListOf<DayItem>()
             if (startDay.dayOfWeek != 1) {
                 for (i in 1..(startDay.dayOfWeek - 1)) {
                     dayItemList.add(DayItem(null, null, null, true))

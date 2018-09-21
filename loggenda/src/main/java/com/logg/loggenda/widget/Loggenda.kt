@@ -2,6 +2,7 @@ package com.logg.loggenda.widget
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Handler
 import android.support.annotation.ColorInt
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewCompat
@@ -49,13 +50,15 @@ class Loggenda @JvmOverloads constructor(
     }
 
     fun setEvents(eventItems: MutableList<EventItem>?, position: Int) {
-        monthAdapter?.getItem(position)!!.dayItems.forEach { dayItem ->
-            eventItems?.firstOrNull { it.date == dayItem.date }?.let {
-                dayItem.eventItem = it
+        Handler().post {
+            monthAdapter?.getItem(position)!!.dayItems.forEach { dayItem ->
+                eventItems?.firstOrNull { it.date == dayItem.date }?.let {
+                    dayItem.eventItem = it
+                }
             }
+            monthAdapter?.notifyItemChanged(position)
+            monthLayoutManager?.setScrollEnabled(true)
         }
-        monthAdapter?.notifyItemChanged(position)
-        monthLayoutManager?.setScrollEnabled(true)
     }
 
     fun setMonthChangeListener(monthChangeListener: BaseMonthChangeListener?) {
@@ -111,12 +114,10 @@ class Loggenda @JvmOverloads constructor(
                 if (snapPosition == 0) {
                     monthAdapter?.addMonth(MonthUtils.addMonth(monthAdapter?.getItem(snapPosition)!!.monthDate, true)!!, true)
                     snapPosition += 1
-                    snapHelper?.snappedPosition = snapPosition
                     previousMonthPosition += 1
                 } else if (snapPosition == monthAdapter?.itemCount!! - 1 && monthAdapter?.getItem(snapPosition)!!.monthDate != LocalDate().dayOfMonth().withMinimumValue()) {
                     monthAdapter?.addMonth(MonthUtils.addMonth(monthAdapter?.getItem(snapPosition)!!.monthDate, false)!!, false)
                     snapPosition -= 1
-                    snapHelper?.snappedPosition = snapPosition
                     previousMonthPosition -= 1
                 }
                 if (previousMonthPosition != snapPosition) {
@@ -124,11 +125,13 @@ class Loggenda @JvmOverloads constructor(
                     monthLayoutManager?.setScrollEnabled(false)
                     monthChangeListener?.onMonthChange(monthAdapter?.getItem(snapPosition)!!.monthDate, snapPosition)
                 }
+                snapHelper?.snappedPosition = snapPosition
                 monthAdapter?.notifyItemChanged(snapPosition)
                 updateMonthName(snapPosition)
+                refreshView()
             }
         })
-        btnNext?.setOnClickListener {
+        btnNext?.setOnClickListener { view ->
             monthAdapter?.getItem(snapHelper?.snappedPosition!!)?.let {
                 if (!it.monthDate.isEqual(nowDate?.dayOfMonth()?.withMinimumValue())) {
                     expand()
@@ -200,12 +203,23 @@ class Loggenda @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (measuredViewHeight == 0) {
+            val rowCount: Int = monthAdapter?.let { adapter ->
+                adapter.getItem(snapHelper!!.snappedPosition)?.dayItems?.let {
+                    Math.ceil((it.size).toDouble() / 7).toInt()
+                } ?: run {
+                    6
+                }
+            } ?: run {
+                6
+            }
             layoutParams.height = (tvMonthName.measuredHeight + tvCalendarInfo.measuredHeight
-                    + dayNameViewGroup.measuredHeight + ((dayItemHeight) * 7))
+                    + dayNameViewGroup.measuredHeight + dayItemHeight * rowCount
+                    + rowCount * ViewUtils.convertDpToPixel(context, 4) + ViewUtils.convertDpToPixel(context, 4))
+
             measuredViewHeight = layoutParams.height
             isCollapsed = false
             monthLayoutManager?.setScrollEnabled(true)
-            onCollapseListener?.OnCollapse(isCollapsed)
+            onCollapseListener?.onCollapse(isCollapsed)
         }
     }
 
@@ -217,7 +231,7 @@ class Loggenda @JvmOverloads constructor(
             ViewUtils.collapse(this, 0,
                     (tvMonthName.measuredHeight + tvCalendarInfo.measuredHeight
                             + dayNameViewGroup.measuredHeight + dayItemHeight + ViewUtils.convertDpToPixel(context, 4)))
-            onCollapseListener?.OnCollapse(isCollapsed)
+            onCollapseListener?.onCollapse(isCollapsed)
         }
     }
 
@@ -228,7 +242,7 @@ class Loggenda @JvmOverloads constructor(
             //recyclerView.isLayoutFrozen = false
             //layoutParams.height = WRAP_CONTENT
             ViewUtils.expand(this, 0, measuredViewHeight)
-            onCollapseListener?.OnCollapse(isCollapsed)
+            onCollapseListener?.onCollapse(isCollapsed)
         }
     }
 

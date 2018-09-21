@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
-    android:layout_marginLeft="4dp">
+    android:layout_marginStart="4dp">
 
     <View
         android:id="@+id/viewReminderDot"
@@ -20,11 +20,13 @@
 
     <TextView
         android:id="@+id/tvDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:textAlignment="center"
         android:textColor="@color/oxford_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,20 +77,16 @@
 
     <TextView
         android:id="@+id/tvMoreCount"
-        android:layout_width="0dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:layout_marginTop="2dp"
+        android:maxLength="4"
         android:maxLines="1"
         android:textAlignment="textEnd"
         android:textColor="@color/azure"
         android:textSize="8sp"
-        android:visibility="gone"
-        android:autoSizeMaxTextSize="8dp"
-        android:autoSizeMinTextSize="4dp"
-        android:autoSizeStepGranularity="1dp"
-        android:autoSizeTextType="uniform"
-        app:layout_constraintDimensionRatio="w,1:1"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

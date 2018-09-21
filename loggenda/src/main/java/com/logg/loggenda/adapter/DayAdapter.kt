@@ -33,7 +33,7 @@ class DayAdapter(private val data: List<DayItem>?, private var nowDate: LocalDat
         return DayAdapterViewHolder(view)
     }
 
-    fun getItem(position: Int): DayItem? {
+    private fun getItem(position: Int): DayItem? {
         return if (data != null) {
             data[position]
 
@@ -138,9 +138,9 @@ class DayAdapter(private val data: List<DayItem>?, private var nowDate: LocalDat
                 vh.itemView.ivIcon2.setColorFilter(vh.itemView.resources.getColor(R.color.white))
                 vh.itemView.ivIcon3.setColorFilter(vh.itemView.resources.getColor(R.color.white))
             }
-            vh.itemView.setOnClickListener {
-                getItem(vh.adapterPosition)?.date?.let {
-                    if (it.isBefore(nowDate) || it.isEqual(nowDate)) {
+            vh.itemView.setOnClickListener { _ ->
+                getItem(vh.adapterPosition)?.date?.let { date ->
+                    if (date.isBefore(nowDate) || date.isEqual(nowDate)) {
                         oldSelectedDay = selectedDay
                         selectedDay = getItem(vh.adapterPosition)?.date
                         oldSelectedDay?.let {
