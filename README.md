@@ -24,7 +24,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ``` gradle
 dependencies {
-  implementation 'com.logg.loggenda:loggenda:0.1.0'
+  implementation 'com.logg.loggenda:loggenda:0.2.0'
 }
 ```
 Loggenda uses [Joda-Time](https://github.com/JodaOrg/joda-time).
