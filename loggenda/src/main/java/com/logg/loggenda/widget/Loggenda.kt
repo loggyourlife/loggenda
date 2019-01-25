@@ -3,14 +3,14 @@ package com.logg.loggenda.widget
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Handler
-import android.support.annotation.ColorInt
-import android.support.v4.app.FragmentManager
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dewinjm.monthyearpicker.MonthYearPickerDialogFragment
 import com.logg.loggenda.R
 import com.logg.loggenda.adapter.MonthAdapter
@@ -177,7 +177,9 @@ class Loggenda @JvmOverloads constructor(
             }
 
         }
-        dialogFragment.show(mSupportFragmentManager, null)
+        mSupportFragmentManager?.let {
+            dialogFragment.show(it, null)
+        }
     }
 
     fun isCollapsed(): Boolean {

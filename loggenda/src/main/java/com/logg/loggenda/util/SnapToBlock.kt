@@ -3,13 +3,13 @@ package com.logg.loggenda.util
 
 import android.annotation.TargetApi
 import android.os.Build
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.*
+import androidx.core.view.ViewCompat
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.animation.Interpolator
 import android.widget.Scroller
+import androidx.recyclerview.widget.*
 import com.logg.loggenda.listener.BaseSnapBlockListener
 
 class SnapToBlock internal constructor(// Maxim blocks to move during most vigorous fling.
